@@ -35,6 +35,7 @@ io.on("connection",(socket) => {
         rooms.get(roomId).add(UserName)
 
         io.to(roomId).emit("UserJoined",Array.from(rooms.get(currentRoom)));
+        console.log("User Joined room ", roomId)
     });
 });
 
