@@ -18,7 +18,7 @@ io.on("connection",(socket) => {
     let currentRoom = null;
     let currentUser = null;
     
-    socket.on("join",({roomId, UserName}) =>{
+    socket.on("join",({roomId, userName}) =>{
 
         if(currentRoom){
             socket.leave(currentRoom);
@@ -26,16 +26,19 @@ io.on("connection",(socket) => {
             io.to(currentRoom).emit("UserJoined",Array.from(rooms.get(currentRoom)));
         }
         currentRoom = roomId;
-        currentUser= UserName;
+        currentUser= userName;
         socket.join(roomId);
 
         if(!rooms.has(roomId)){
             rooms.set(roomId, new Set());
         }
-        rooms.get(roomId).add(UserName)
+        rooms.get(roomId).add(userName)
 
         io.to(roomId).emit("UserJoined",Array.from(rooms.get(currentRoom)));
         console.log("User Joined room ", roomId)
+    });
+    socket.on("codeChange",({roomId, code})  =>{
+        socket.to(roomId).emit("codeUpdate",code);
     });
 });
 
