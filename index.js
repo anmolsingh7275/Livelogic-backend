@@ -10,7 +10,7 @@ const io =  new Server(server,{
     },
 
 });
-const rooms = new  Map()
+const rooms new  = new  Map()
 
 io.on("connection",(socket) => {
     console.log("User Connected", socket.id);
