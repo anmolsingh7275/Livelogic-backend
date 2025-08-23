@@ -38,7 +38,7 @@ io.on("connection",(socket) => {
         
     });
     socket.on("codeChange",({roomId, code})  =>{
-        socket.to(roomId).emit("codeUpdate",code);
+      socket.to(roomId).emit("codeUpdate", code);
     });
 
     socket.on("leaveRoom",()=>{
